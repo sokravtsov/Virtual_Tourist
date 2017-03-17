@@ -54,14 +54,38 @@
 		823D7A031E7B396A00CC0190 /* Virtual Tourist */ = {
 			isa = PBXGroup;
 			children = (
+				A17D48621E7BD89700F505BB /* Model */,
+				A17D48611E7BD88400F505BB /* Controller */,
 				823D7A041E7B396A00CC0190 /* AppDelegate.swift */,
-				823D7A061E7B396A00CC0190 /* MapViewController.swift */,
-				823D7A081E7B396A00CC0190 /* Main.storyboard */,
-				823D7A0B1E7B396A00CC0190 /* Assets.xcassets */,
-				823D7A0D1E7B396A00CC0190 /* LaunchScreen.storyboard */,
-				823D7A101E7B396A00CC0190 /* Info.plist */,
+				A17D48631E7BD8A600F505BB /* Supporting Files */,
 			);
 			path = "Virtual Tourist";
+			sourceTree = "<group>";
+		};
+		A17D48611E7BD88400F505BB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				823D7A061E7B396A00CC0190 /* MapViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		A17D48621E7BD89700F505BB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		A17D48631E7BD8A600F505BB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				823D7A101E7B396A00CC0190 /* Info.plist */,
+				823D7A0D1E7B396A00CC0190 /* LaunchScreen.storyboard */,
+				823D7A081E7B396A00CC0190 /* Main.storyboard */,
+				823D7A0B1E7B396A00CC0190 /* Assets.xcassets */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

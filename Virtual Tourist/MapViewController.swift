@@ -22,6 +22,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mapView.delegate = self
+//        self.mapView.showsUserLocation = true
+//        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
