@@ -34,6 +34,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         super.viewWillAppear(animated)
         setupGesture()
     }
+    
+    @IBAction func testTap(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "photoAlbum", sender: self)
+    }
+    
 }
 
 // MARK: - LocationManager

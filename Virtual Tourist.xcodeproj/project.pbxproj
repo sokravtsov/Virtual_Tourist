@@ -12,6 +12,7 @@
 		823D7A0A1E7B396A00CC0190 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 823D7A081E7B396A00CC0190 /* Main.storyboard */; };
 		823D7A0C1E7B396A00CC0190 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 823D7A0B1E7B396A00CC0190 /* Assets.xcassets */; };
 		823D7A0F1E7B396A00CC0190 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 823D7A0D1E7B396A00CC0190 /* LaunchScreen.storyboard */; };
+		823D7A1C1E7E8C8100CC0190 /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823D7A1B1E7E8C8100CC0190 /* PhotoAlbumViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		823D7A0B1E7B396A00CC0190 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		823D7A0E1E7B396A00CC0190 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		823D7A101E7B396A00CC0190 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		823D7A1B1E7E8C8100CC0190 /* PhotoAlbumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,9 +56,9 @@
 		823D7A031E7B396A00CC0190 /* Virtual Tourist */ = {
 			isa = PBXGroup;
 			children = (
+				823D7A041E7B396A00CC0190 /* AppDelegate.swift */,
 				A17D48621E7BD89700F505BB /* Model */,
 				A17D48611E7BD88400F505BB /* Controller */,
-				823D7A041E7B396A00CC0190 /* AppDelegate.swift */,
 				A17D48631E7BD8A600F505BB /* Supporting Files */,
 			);
 			path = "Virtual Tourist";
@@ -66,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				823D7A061E7B396A00CC0190 /* MapViewController.swift */,
+				823D7A1B1E7E8C8100CC0190 /* PhotoAlbumViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -163,6 +166,7 @@
 			files = (
 				823D7A071E7B396A00CC0190 /* MapViewController.swift in Sources */,
 				823D7A051E7B396A00CC0190 /* AppDelegate.swift in Sources */,
+				823D7A1C1E7E8C8100CC0190 /* PhotoAlbumViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
