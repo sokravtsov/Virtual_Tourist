@@ -12,3 +12,14 @@ struct Flickr {
     static let urlForSearch = "flickr.photos.search"
     static let apiUrl = "https://api.flickr.com/services/rest/"
 }
+
+struct Constants {
+    static let pin = "Pin"
+    static let pinError = "Could not find entity Pin"
+    static let photo = "Photo"
+    static let photoError = "Could not find entity Photo"
+}
+
+struct Identifier {
+    static let photoAlbum = "photoAlbum"
+}

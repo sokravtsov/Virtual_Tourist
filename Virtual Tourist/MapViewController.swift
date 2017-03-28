@@ -36,7 +36,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     @IBAction func testTap(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "photoAlbum", sender: self)
+        self.performSegue(withIdentifier: Identifier.photoAlbum, sender: self)
     }
     
 }

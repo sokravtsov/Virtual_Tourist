@@ -9,11 +9,10 @@
 import Foundation
 import CoreData
 
-
 extension Pin {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Pin> {
-        return NSFetchRequest<Pin>(entityName: "Pin");
+        return NSFetchRequest<Pin>(entityName: Constants.pin);
     }
 
     @NSManaged public var createdAt: NSDate?

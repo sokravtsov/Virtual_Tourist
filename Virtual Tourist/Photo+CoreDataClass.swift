@@ -14,11 +14,11 @@ public class Photo: NSManagedObject {
     
     // MARK: - Initializer
     convenience init(photo: NSData, context: NSManagedObjectContext) {
-        if let ent = NSEntityDescription.entity(forEntityName: "Photo", in: context) {
+        if let ent = NSEntityDescription.entity(forEntityName: Constants.photo, in: context) {
             self.init(entity: ent, insertInto: context)
             self.photo = photo
         } else {
-            fatalError("Could not find entity Photo")
+            fatalError(Constants.photoError)
         }
     }
 }
