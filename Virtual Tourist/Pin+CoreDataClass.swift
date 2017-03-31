@@ -8,18 +8,36 @@
 
 import Foundation
 import CoreData
+import MapKit
 
+/// Class for Pin object
 public class Pin: NSManagedObject {
     
-    // MARK: - Initializer
-    convenience init(createdAt: NSDate, latitude: Double, longitude: Double, context: NSManagedObjectContext) {
-        if let ent = NSEntityDescription.entity(forEntityName: Constants.pin, in: context) {
-            self.init(entity: ent, insertInto: context)
-            self.createdAt = createdAt
-            self.latitude = latitude
-            self.longitude = longitude
-        } else {
-            fatalError(Constants.pinError)
-        }
+    var coordinate: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
+
+    // MARK: - Initializer
+    override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertInto: context)
+    }
+    
+    init(latitude: Double, longitude: Double, context: NSManagedObjectContext) {
+        let entity = NSEntityDescription.entity(forEntityName: Constants.pin, in: context)!
+        super.init(entity: entity, insertInto: context)
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+
+//    convenience init(createdAt: NSDate, latitude: Double, longitude: Double, context: NSManagedObjectContext) {
+//        if let ent = NSEntityDescription.entity(forEntityName: Constants.pin, in: context) {
+//            self.init(entity: ent, insertInto: context)
+//            self.createdAt = createdAt
+//            self.latitude = latitude
+//            self.longitude = longitude
+//        } else {
+//            fatalError(Constants.pinError)
+//        }
+//    }
+    
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8223F1B51E8EE9430021A23C /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8223F1B41E8EE9430021A23C /* GCDBlackBox.swift */; };
+		8223F1B81E8EEA620021A23C /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8223F1B71E8EEA620021A23C /* DataLoader.swift */; };
 		823D7A051E7B396A00CC0190 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823D7A041E7B396A00CC0190 /* AppDelegate.swift */; };
 		823D7A071E7B396A00CC0190 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823D7A061E7B396A00CC0190 /* MapViewController.swift */; };
 		823D7A0A1E7B396A00CC0190 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 823D7A081E7B396A00CC0190 /* Main.storyboard */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8223F1B41E8EE9430021A23C /* GCDBlackBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
+		8223F1B71E8EEA620021A23C /* DataLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
 		823D7A011E7B396A00CC0190 /* Virtual Tourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Virtual Tourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		823D7A041E7B396A00CC0190 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		823D7A061E7B396A00CC0190 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -51,6 +55,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8223F1B61E8EE9CB0021A23C /* Persistance */ = {
+			isa = PBXGroup;
+			children = (
+				82430A201E8696EA00297FCC /* Model.xcdatamodeld */,
+				82430A231E869F1C00297FCC /* Pin+CoreDataClass.swift */,
+				82430A241E869F1C00297FCC /* Pin+CoreDataProperties.swift */,
+				82430A251E869F1C00297FCC /* Photo+CoreDataClass.swift */,
+				82430A261E869F1C00297FCC /* Photo+CoreDataProperties.swift */,
+				82430A2B1E869FD200297FCC /* CoreDataStack.swift */,
+			);
+			name = Persistance;
+			sourceTree = "<group>";
+		};
 		823D79F81E7B396A00CC0190 = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +89,7 @@
 			children = (
 				823D7A041E7B396A00CC0190 /* AppDelegate.swift */,
 				82430A1E1E86952700297FCC /* Constants.swift */,
+				8223F1B41E8EE9430021A23C /* GCDBlackBox.swift */,
 				A17D48621E7BD89700F505BB /* Model */,
 				A17D48611E7BD88400F505BB /* Controller */,
 				A17D48631E7BD8A600F505BB /* Supporting Files */,
@@ -91,12 +109,8 @@
 		A17D48621E7BD89700F505BB /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				82430A201E8696EA00297FCC /* Model.xcdatamodeld */,
-				82430A231E869F1C00297FCC /* Pin+CoreDataClass.swift */,
-				82430A241E869F1C00297FCC /* Pin+CoreDataProperties.swift */,
-				82430A251E869F1C00297FCC /* Photo+CoreDataClass.swift */,
-				82430A261E869F1C00297FCC /* Photo+CoreDataProperties.swift */,
-				82430A2B1E869FD200297FCC /* CoreDataStack.swift */,
+				8223F1B61E8EE9CB0021A23C /* Persistance */,
+				8223F1B71E8EEA620021A23C /* DataLoader.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -189,9 +203,11 @@
 				823D7A051E7B396A00CC0190 /* AppDelegate.swift in Sources */,
 				82430A291E869F1C00297FCC /* Photo+CoreDataClass.swift in Sources */,
 				82430A221E8696EA00297FCC /* Model.xcdatamodeld in Sources */,
+				8223F1B51E8EE9430021A23C /* GCDBlackBox.swift in Sources */,
 				82430A281E869F1C00297FCC /* Pin+CoreDataProperties.swift in Sources */,
 				82430A2C1E869FD200297FCC /* CoreDataStack.swift in Sources */,
 				82430A271E869F1C00297FCC /* Pin+CoreDataClass.swift in Sources */,
+				8223F1B81E8EEA620021A23C /* DataLoader.swift in Sources */,
 				82430A2A1E869F1C00297FCC /* Photo+CoreDataProperties.swift in Sources */,
 				823D7A1C1E7E8C8100CC0190 /* PhotoAlbumViewController.swift in Sources */,
 				82430A1F1E86952700297FCC /* Constants.swift in Sources */,

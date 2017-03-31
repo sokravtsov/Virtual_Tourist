@@ -10,16 +10,67 @@ struct Flickr {
     static let apiKey = "5b9aa60185840dd916d9b69e6cbd6b5c"
     static let apiSecret = "b008ce6624a226a2"
     static let urlForSearch = "flickr.photos.search"
-    static let apiUrl = "https://api.flickr.com/services/rest/"
+    static let scheme = "https"
+    static let host = "api.flickr.com"
+    static let path = "/services/rest/"
 }
 
 struct Constants {
     static let pin = "Pin"
-    static let pinError = "Could not find entity Pin"
     static let photo = "Photo"
+    
+    static let id = "id"
+    static let urlM = "url_m"
+    
+    static let pinError = "Could not find entity Pin"
     static let photoError = "Could not find entity Photo"
 }
 
 struct Identifier {
     static let photoAlbum = "photoAlbum"
+}
+
+struct ErrorIs {
+    static let request = "There was an error with your request: "
+    static let statusCode = "Your request returned a status code other than 2xx!"
+    static let inData = "No data was returned by the request!"
+    static let serialization = "Could not serialize the data from JSON"
+    static let pin = "Could not acquire pin value for photo search"
+    static let pinCompletion = "Could not complete photo search with pin"
+}
+
+struct ParameterKeys {
+    static let method = "method"
+    static let APIKey = "api_key"
+    static let safeSearch = "safe_search"
+    static let latitude = "lat"
+    static let longitude = "lon"
+    static let radius = "radius"
+    static let extras = "extras"
+    static let format = "format"
+    static let noJSONCallback = "nojsoncallback"
+    static let perPage = "per_page"
+    static let page = "page"
+}
+
+struct ParameterValues {
+    static let safeSearch = "1"
+    static let radius = "5"
+    static let extras = "url_m"
+    static let json = "json"
+    static let disableJSONCallback = "1"
+}
+
+struct ResponseKeys {
+    static let stat = "stat"
+    static let photos = "photos"
+    static let photo = "photo"
+    static let pages = "pages"
+    static let perPage = "perpage"
+    static let id = "id"
+    static let mediumURL = "url_m"
+}
+
+struct ResponseValues {
+    static let ok = "ok"
 }
