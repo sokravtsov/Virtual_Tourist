@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8223F1B51E8EE9430021A23C /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8223F1B41E8EE9430021A23C /* GCDBlackBox.swift */; };
 		8223F1B81E8EEA620021A23C /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8223F1B71E8EEA620021A23C /* DataLoader.swift */; };
+		8223F1C31E8F03E10021A23C /* PhotoAlbumViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8223F1C21E8F03E10021A23C /* PhotoAlbumViewCell.swift */; };
 		823D7A051E7B396A00CC0190 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823D7A041E7B396A00CC0190 /* AppDelegate.swift */; };
 		823D7A071E7B396A00CC0190 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823D7A061E7B396A00CC0190 /* MapViewController.swift */; };
 		823D7A0A1E7B396A00CC0190 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 823D7A081E7B396A00CC0190 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		8223F1B41E8EE9430021A23C /* GCDBlackBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
 		8223F1B71E8EEA620021A23C /* DataLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
+		8223F1C21E8F03E10021A23C /* PhotoAlbumViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewCell.swift; sourceTree = "<group>"; };
 		823D7A011E7B396A00CC0190 /* Virtual Tourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Virtual Tourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		823D7A041E7B396A00CC0190 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		823D7A061E7B396A00CC0190 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +70,14 @@
 			name = Persistance;
 			sourceTree = "<group>";
 		};
+		8223F1C11E8F03BE0021A23C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8223F1C21E8F03E10021A23C /* PhotoAlbumViewCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		823D79F81E7B396A00CC0190 = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +101,7 @@
 				82430A1E1E86952700297FCC /* Constants.swift */,
 				8223F1B41E8EE9430021A23C /* GCDBlackBox.swift */,
 				A17D48621E7BD89700F505BB /* Model */,
+				8223F1C11E8F03BE0021A23C /* View */,
 				A17D48611E7BD88400F505BB /* Controller */,
 				A17D48631E7BD8A600F505BB /* Supporting Files */,
 			);
@@ -205,6 +216,7 @@
 				82430A221E8696EA00297FCC /* Model.xcdatamodeld in Sources */,
 				8223F1B51E8EE9430021A23C /* GCDBlackBox.swift in Sources */,
 				82430A281E869F1C00297FCC /* Pin+CoreDataProperties.swift in Sources */,
+				8223F1C31E8F03E10021A23C /* PhotoAlbumViewCell.swift in Sources */,
 				82430A2C1E869FD200297FCC /* CoreDataStack.swift in Sources */,
 				82430A271E869F1C00297FCC /* Pin+CoreDataClass.swift in Sources */,
 				8223F1B81E8EEA620021A23C /* DataLoader.swift in Sources */,

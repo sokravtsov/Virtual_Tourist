@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6V8-Om-Cpl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6V8-Om-Cpl">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -91,19 +91,33 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="Cell" id="xMd-MS-xho">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="PhotoAlbumViewCell" id="xMd-MS-xho" customClass="PhotoAlbumViewCell" customModule="Virtual_Tourist" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y11-nw-awR">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="y11-nw-awR">
                                                     <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="iR0-po-xaO">
+                                                    <rect key="frame" x="45" y="45" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstItem="y11-nw-awR" firstAttribute="top" secondItem="xMd-MS-xho" secondAttribute="topMargin" constant="-8" id="8pn-iB-C7Q"/>
+                                            <constraint firstItem="iR0-po-xaO" firstAttribute="centerY" secondItem="y11-nw-awR" secondAttribute="centerY" id="CXL-WG-Vpd"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="y11-nw-awR" secondAttribute="bottom" constant="-8" id="CXw-wO-Gd2"/>
+                                            <constraint firstItem="y11-nw-awR" firstAttribute="leading" secondItem="xMd-MS-xho" secondAttribute="leadingMargin" constant="-8" id="Dpb-Es-1b9"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="y11-nw-awR" secondAttribute="trailing" constant="-8" id="lRU-sd-muP"/>
+                                            <constraint firstItem="iR0-po-xaO" firstAttribute="centerX" secondItem="y11-nw-awR" secondAttribute="centerX" id="r6l-7w-Qnm"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="activityIndicator" destination="iR0-po-xaO" id="b0M-NC-kb9"/>
+                                            <outlet property="imageView" destination="y11-nw-awR" id="mDv-L5-Nzh"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
