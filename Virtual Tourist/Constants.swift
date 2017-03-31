@@ -6,6 +6,8 @@
 //  Copyright © 2017 Sergey Kravtsov. All rights reserved.
 //
 
+import Foundation
+
 struct Flickr {
     static let apiKey = "5b9aa60185840dd916d9b69e6cbd6b5c"
     static let apiSecret = "b008ce6624a226a2"
@@ -73,4 +75,14 @@ struct ResponseKeys {
 
 struct ResponseValues {
     static let ok = "ok"
+}
+
+struct Animation {
+    struct Duration {
+//        static let min = 0.2
+//        static let low = 0.25
+        static let medium = 0.5
+//        static let high = 0.75
+//        static let max = 1.0
+    }
 }

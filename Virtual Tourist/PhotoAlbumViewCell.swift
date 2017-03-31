@@ -11,12 +11,11 @@ import UIKit
 class PhotoAlbumViewCell: UICollectionViewCell {
     
     // MARK: - Outlets
-    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
-    // MARK: - Variables 
+    // MARK: - Properties
     var taskToCancelIfCellReused: URLSessionTask? {
         didSet {
             if let taskToCancel = oldValue {
