@@ -163,7 +163,7 @@ extension MapViewController {
         if newState == .ending {
             let annotation = view.annotation as! Pin
             mapView.addAnnotation(annotation)
-//            AppDelegate.stack.save()
+            AppDelegate.stack.save()
         }
     }
 }
