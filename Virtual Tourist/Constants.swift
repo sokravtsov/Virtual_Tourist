@@ -20,16 +20,25 @@ struct Flickr {
 struct Constants {
     static let pin = "Pin"
     static let photo = "Photo"
-    
+    static let latitude = "latitude"
+    static let longitude = "longitude"
+    static let latitudeDelta = "latitudeDelta"
+    static let longitudeDelta = "longitudeDelta"
     static let id = "id"
     static let urlM = "url_m"
-    
+    static let region = "region"
     static let pinError = "Could not find entity Pin"
     static let photoError = "Could not find entity Photo"
+    static let format = "pin == %@"
 }
 
 struct Identifier {
     static let photoAlbum = "photoAlbum"
+    static let photoAlbumViewCell = "PhotoAlbumViewCell"
+}
+
+struct ReuseID {
+    static let pin = "pin"
 }
 
 struct ErrorIs {
@@ -39,6 +48,17 @@ struct ErrorIs {
     static let serialization = "Could not serialize the data from JSON"
     static let pin = "Could not acquire pin value for photo search"
     static let pinCompletion = "Could not complete photo search with pin"
+    static let pageCompletion = "Could not complete photo search with page"
+}
+
+struct NetworkError {
+    static let base = "There was an error in getFlickrPhotos"
+    static let flickr = "An error occured trying to retrieve photos from Flickr API"
+    static let status = "There was a status error in getFlickrPhotos"
+    static let statusCompletion = "A status code error occured from Flickr API"
+    static let numberPage = "There was an error parsing photos for page number"
+    static let parsing = "There was an error parsing photos"
+    static let downloading = "An error occured downloading photos from Flickr API"
 }
 
 struct ParameterKeys {

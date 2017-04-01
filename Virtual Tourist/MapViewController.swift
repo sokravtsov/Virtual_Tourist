@@ -8,11 +8,10 @@
 
 import UIKit
 import MapKit
-import CoreLocation
 import CoreData
 
 // MARK: - MapViewController: UIViewController
-class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, NSFetchedResultsControllerDelegate {
+final class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, NSFetchedResultsControllerDelegate {
     
     // MARK: - Variables
     var locationManager = CLLocationManager()
@@ -22,8 +21,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     /* Create a fetchedResultsController to retrieve and monitor changes in CoreDataModel */
     lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>? = {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Pin")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "latitude", ascending: true)]
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.pin)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: Constants.latitude, ascending: true)]
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: AppDelegate.stack.context, sectionNameKeyPath: nil, cacheName: nil)
         return fetchedResultsController
     }()
@@ -35,14 +34,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mapView.delegate = self
-//        self.mapView.showsUserLocation = true
-//        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        
         fetchedResultsController?.delegate = self
-//        executeSearch()
         loadPersistedRegion()
         setPersistedLocations()
     }
@@ -53,33 +48,32 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
 }
 
-// MARK: - LocationManager
-extension MapViewController {
-    ///Method for update location
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        let location = locations.last
-        
-        let center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
-        
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
-        
-        self.mapView.setRegion(region, animated: true)
-        
-        self.locationManager.stopUpdatingLocation()
-    }
-    
-    ///Method for checking errors
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print ("Errors: " + error.localizedDescription)
-    }
-}
+//// MARK: - LocationManager
+//extension MapViewController {
+//    ///Method for update location
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        
+//        let location = locations.last
+//        
+//        let center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
+//        
+//        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
+//        
+//        self.mapView.setRegion(region, animated: true)
+//        
+//        self.locationManager.stopUpdatingLocation()
+//    }
+//    
+//    ///Method for checking errors
+//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+//        print ("Errors: " + error.localizedDescription)
+//    }
+//}
 
 // MARK: - UILongPressGestureRecognizer
 extension MapViewController {
     func setupGesture() {
         let uilgr = UILongPressGestureRecognizer(target: self, action: #selector(action))
-//        uilgr.minimumPressDuration = 1.0
         self.mapView.addGestureRecognizer(uilgr)
     }
     
@@ -88,8 +82,7 @@ extension MapViewController {
         let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         let annotation = Pin(latitude: newCoordinates.latitude, longitude: newCoordinates.longitude, context: AppDelegate.stack.context)
         self.mapView.addAnnotation(annotation)
-        AppDelegate.stack.save()
-
+//        AppDelegate.stack.save()
     }
 }
 
@@ -98,20 +91,19 @@ extension MapViewController {
         if let fc = fetchedResultsController {
             do {
                 try fc.performFetch()
-            } catch let e as NSError {
-                print("Error while trying to perform a search: \n\(e)\n\(String(describing: fetchedResultsController))")
+            } catch let error as NSError {
+                print("Error while trying to perform a search: \n\(error)\n\(String(describing: fetchedResultsController))")
             }
         }
     }
     
     func loadPersistedRegion() {
-        
-        if let region = UserDefaults.standard.object(forKey: "region") as AnyObject? {
-            let latitude = region["latitude"] as! CLLocationDegrees
-            let longitude = region["longitude"] as! CLLocationDegrees
+        if let region = UserDefaults.standard.object(forKey: Constants.region) as AnyObject? {
+            let latitude = region[Constants.latitude] as! CLLocationDegrees
+            let longitude = region[Constants.longitude] as! CLLocationDegrees
             let center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            let latDelta = region["latitudeDelta"] as! CLLocationDegrees
-            let longDelta = region["longitudeDelta"] as! CLLocationDegrees
+            let latDelta = region[Constants.latitudeDelta] as! CLLocationDegrees
+            let longDelta = region[Constants.longitudeDelta] as! CLLocationDegrees
             let span = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: longDelta)
             let updatedRegion = MKCoordinateRegion(center: center, span: span)
             mapView.setRegion(updatedRegion, animated: true)
@@ -122,14 +114,13 @@ extension MapViewController {
         executeSearch()
         for pin in fetchedResultsController?.fetchedObjects as! [Pin] {
             mapView.addAnnotation(pin)
-            print("Loaded Annotation")
         }
     }
 }
 
 extension MapViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "photoAlbum" {
+        if segue.identifier == Identifier.photoAlbum {
             let pin = sender as! Pin
             let nextController = segue.destination as! PhotoAlbumViewController
             nextController.pin = pin
@@ -139,7 +130,7 @@ extension MapViewController {
     // MARK: - MKMapViewDelegate
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
-        let reuseId = "pin"
+        let reuseId = ReuseID.pin
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
@@ -153,36 +144,26 @@ extension MapViewController {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        
-//        if presentationState == false {
-            mapView.deselectAnnotation(view.annotation, animated: true)
-            let pin = view.annotation as! Pin
-            performSegue(withIdentifier: "photoAlbum", sender: pin)
-//        } else {
-//            if presentationState == true {
-//                let pin = view.annotation as! Pin
-//                mapView.removeAnnotation(pin)
-//                AppDelegate.stack.context.delete(pin)
-//                AppDelegate.stack.save()
-//            }
-//        }
+        mapView.deselectAnnotation(view.annotation, animated: true)
+        let pin = view.annotation as! Pin
+        performSegue(withIdentifier: Identifier.photoAlbum, sender: pin)
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         let persistedRegion = [
-            "latitude" : mapView.region.center.latitude,
-            "longitude" : mapView.region.center.longitude,
-            "latitudeDelta" : mapView.region.span.latitudeDelta,
-            "longitudeDelta" : mapView.region.span.longitudeDelta
+            Constants.latitude : mapView.region.center.latitude,
+            Constants.longitude : mapView.region.center.longitude,
+            Constants.latitudeDelta : mapView.region.span.latitudeDelta,
+            Constants.longitudeDelta : mapView.region.span.longitudeDelta
         ]
-        UserDefaults.standard.set(persistedRegion, forKey: "region")
+        UserDefaults.standard.set(persistedRegion, forKey: Constants.region)
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
         if newState == .ending {
             let annotation = view.annotation as! Pin
             mapView.addAnnotation(annotation)
-            AppDelegate.stack.save()
+//            AppDelegate.stack.save()
         }
     }
 }

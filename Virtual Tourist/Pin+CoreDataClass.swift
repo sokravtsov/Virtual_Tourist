@@ -28,16 +28,4 @@ public class Pin: NSManagedObject, MKAnnotation {
         self.latitude = latitude
         self.longitude = longitude
     }
-
-//    convenience init(createdAt: NSDate, latitude: Double, longitude: Double, context: NSManagedObjectContext) {
-//        if let ent = NSEntityDescription.entity(forEntityName: Constants.pin, in: context) {
-//            self.init(entity: ent, insertInto: context)
-//            self.createdAt = createdAt
-//            self.latitude = latitude
-//            self.longitude = longitude
-//        } else {
-//            fatalError(Constants.pinError)
-//        }
-//    }
-    
 }

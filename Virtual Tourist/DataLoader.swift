@@ -8,12 +8,14 @@
 
 import Foundation
 
-class DataLoader: NSObject {
+final class DataLoader: NSObject {
     
-    // MARK: - URL Session
+    // MARK: - Variables
     var session = URLSession.shared
     
-    // MARK: - Get Method
+    // MARK: - Methods
+    
+    ///Task for Get Method
     func taskForGETMethod(parameters: [String:AnyObject], completionHandlerForGET: @escaping (_ result: [String:AnyObject]?, _ error: String?) -> Void) -> URLSessionDataTask {
         let parametersForRequest = parameters
         let request = NSMutableURLRequest(url: flickrURLBuilder(parametersForRequest, withPathExtension: nil))
@@ -42,7 +44,7 @@ class DataLoader: NSObject {
         return task
     }
     
-    // MARK: - URL Builder
+    ///URL Builder
     private func flickrURLBuilder(_ parameters: [String:AnyObject], withPathExtension: String?) -> URL {
         var components = URLComponents()
         components.scheme = Flickr.scheme
@@ -57,6 +59,7 @@ class DataLoader: NSObject {
         return components.url!
     }
     
+    ///Method for converting data
     private func convertDataWithCompletionHandler(_ data: Data, completionHandlerForConvertedData: (_ result: [String:AnyObject]?, _ error: String?) -> Void) {
         
         var parsedResult: [String:AnyObject]?
@@ -68,7 +71,7 @@ class DataLoader: NSObject {
         completionHandlerForConvertedData(parsedResult, nil)
     }
     
-    // Get images from urls stored in CoreData, show in photoAlbumCollectionViewController
+    ///Method for getting images from urls stored in CoreData
     func getFlickrImages(_ photo: Photo?, completionHandlerForGetFlickrImages: @escaping (_ success: Bool, _ errorString: String?, _ imageData: Data?) -> Void) -> URLSessionTask {
         
         let flickrURL = photo?.stringURL
@@ -86,7 +89,7 @@ class DataLoader: NSObject {
         return task
     }
     
-    // Get the number of pages and photos per page for a given request with pin
+    ///Methof for getting the number of pages and photos per page for a given request with pin
     func getPhotosUsingFlickr(_ pin: Pin?, completionHandlerForGETPhotosUsingFlickr: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
         guard pin != nil else {
@@ -113,18 +116,18 @@ class DataLoader: NSObject {
         let _ = taskForGETMethod(parameters: parameters!) { (results, error) in
             
             guard (error == nil) else {
-                print("There was an error in getFlickrPhotos")
-                completionHandlerForGETPhotosUsingFlickr(false, "An error occured trying to retrieve photos from Flickr!")
+                print(NetworkError.base)
+                completionHandlerForGETPhotosUsingFlickr(false, NetworkError.flickr)
                 return
             }
             guard let status = results?[ResponseKeys.stat] as? String, status == ResponseValues.ok else {
-                print("There was a status error in getFlickrPhotos")
-                completionHandlerForGETPhotosUsingFlickr(false, "A status code error occured from Flickr!")
+                print(NetworkError.status)
+                completionHandlerForGETPhotosUsingFlickr(false, NetworkError.statusCompletion)
                 return
             }
             guard let photosDictionary = results?[ResponseKeys.photos] as? [String:AnyObject], let numberOfPages = photosDictionary[ResponseKeys.pages] as? Int, let totalPerPage = photosDictionary[ResponseKeys.perPage] as? Int else {
-                print("There was an error parsing photos for page number")
-                completionHandlerForGETPhotosUsingFlickr(false, "An error occured downloading photos from Flickr!")
+                print(NetworkError.numberPage)
+                completionHandlerForGETPhotosUsingFlickr(false, NetworkError.downloading)
                 return
             }
             numberOfPagesFromRequest = numberOfPages
@@ -139,8 +142,8 @@ class DataLoader: NSObject {
     private func getPhotosUsingPage(_ pin: Pin?, randomPage: Int?, perPage: Int?, completionHandlerForGETPhotosUsingPage: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
         guard pin != nil else {
-            print("Could not acquire pin value for photo search")
-            completionHandlerForGETPhotosUsingPage(false, "Could not complete photo search with page")
+            print(ErrorIs.pin)
+            completionHandlerForGETPhotosUsingPage(false, ErrorIs.pageCompletion)
             return
         }
         
@@ -161,18 +164,18 @@ class DataLoader: NSObject {
         let _ = self.taskForGETMethod(parameters: parameters!) { (results, error) in
             
             guard (error == nil) else {
-                print("There was an error in getFlickrPhotos")
+                print(NetworkError.base)
                 completionHandlerForGETPhotosUsingPage(false, error)
                 return
             }
             guard let status = results?[ResponseKeys.stat] as? String, status == ResponseValues.ok else {
-                print("There was a status error in getFlickrPhotos")
-                completionHandlerForGETPhotosUsingPage(false, "A status code error occured from Flickr!")
+                print(NetworkError.status)
+                completionHandlerForGETPhotosUsingPage(false, NetworkError.statusCompletion)
                 return
             }
             guard let photosDictionary = results?[ResponseKeys.photos] as? [String:AnyObject], let photoArrayOfDictionaries = photosDictionary[ResponseKeys.photo] as? [[String:AnyObject]] else {
-                print("There was an error parsing photos")
-                completionHandlerForGETPhotosUsingPage(false, "An error occured downloading photos from Flickr!")
+                print(NetworkError.parsing)
+                completionHandlerForGETPhotosUsingPage(false, NetworkError.downloading)
                 return
             }
             

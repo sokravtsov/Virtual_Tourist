@@ -21,15 +21,5 @@ public class Photo: NSManagedObject {
         super.init(entity: entity, insertInto: context)
         self.id = dictionary[Constants.id] as? String
         self.stringURL = dictionary[Constants.urlM] as? String
-    }
-    
-//    convenience init(photo: NSData, context: NSManagedObjectContext) {
-//        if let ent = NSEntityDescription.entity(forEntityName: Constants.photo, in: context) {
-//            self.init(entity: ent, insertInto: context)
-//            self.photo = photo as Data
-//            
-//        } else {
-//            fatalError(Constants.photoError)
-//        }
-//    }
+    }    
 }

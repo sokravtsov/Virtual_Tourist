@@ -8,10 +8,9 @@
 
 import UIKit
 import MapKit
-//import CoreLocation
 import CoreData
 
-class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, MKMapViewDelegate, NSFetchedResultsControllerDelegate {
+final class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, MKMapViewDelegate, NSFetchedResultsControllerDelegate {
     
     // MARK: - Outlets
     @IBOutlet weak var collectionView: UICollectionView!
@@ -30,9 +29,9 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
     
     // Create NSFetchedResultsController
     lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
-        fetchRequest.predicate = NSPredicate(format: "pin == %@", self.pin!)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.photo)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: Constants.id, ascending: true)]
+        fetchRequest.predicate = NSPredicate(format: Constants.format, self.pin!)
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: AppDelegate.stack.context, sectionNameKeyPath: nil, cacheName: nil)
         return fetchedResultsController
     }()
@@ -54,7 +53,7 @@ class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate, UICo
                 if success {
                     performUIUpdatesOnMain {
                         self.hideActivityIndicator()
-                        AppDelegate.stack.save()
+//                        AppDelegate.stack.save()
                     }
                 }
             }
@@ -72,7 +71,7 @@ extension PhotoAlbumViewController {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoAlbumViewCell", for: indexPath) as! PhotoAlbumViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.photoAlbumViewCell, for: indexPath) as! PhotoAlbumViewCell
         configureCell(cell, atIndexPath: indexPath as NSIndexPath)
         return cell
     }
@@ -97,34 +96,27 @@ extension PhotoAlbumViewController {
         cell.imageView.image = nil
         
         if let image = photo.photo {
-            _ = UIImage(data: image)
+            cellImage = UIImage(data: image)
         } else {
             let task = DataLoader.sharedInstance().getFlickrImages(photo) { (success, errorString, imageData) in
                 if errorString != nil {
-                    print("Error occured in configureCell()")
+                    print("Error occured in configureCell")
                     cellImage = nil
                 } else {
                     if let data = imageData {
-                        photo.photo = data
                         performUIUpdatesOnMain {
+                            photo.photo = data
                             cell.imageView.image = UIImage(data: data)
                         }
                     } else {
-                        print("Could not get the image data in configureCell()")
+                        print("Could not get the image data in configureCell")
                     }
                 }
                 
             }
             cell.taskToCancelIfCellReused = task
         }
-        
         cell.imageView.image = cellImage
-//        checkifButtonShouldChange(checkIf: cell, isDisplaying: placeHolderImage!)
-//        if let index = selectedIndexes.index(of: indexPath as NSIndexPath) {
-//            cell.imageView.alpha = 0.25
-//        } else {
-//            cell.imageView.alpha = 1.0
-//        }
     }
 }
 

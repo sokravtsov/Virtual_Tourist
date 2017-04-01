@@ -8,12 +8,10 @@
 
 import UIKit
 
-class PhotoAlbumViewCell: UICollectionViewCell {
+final class PhotoAlbumViewCell: UICollectionViewCell {
     
     // MARK: - Outlets
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
     
     // MARK: - Properties
     var taskToCancelIfCellReused: URLSessionTask? {
