@@ -11,9 +11,9 @@ import CoreData
 import MapKit
 
 /// Class for Pin object
-public class Pin: NSManagedObject {
+public class Pin: NSManagedObject, MKAnnotation {
     
-    var coordinate: CLLocationCoordinate2D {
+    public var coordinate: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
 
