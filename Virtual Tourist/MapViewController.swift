@@ -82,7 +82,7 @@ extension MapViewController {
         let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         let annotation = Pin(latitude: newCoordinates.latitude, longitude: newCoordinates.longitude, context: AppDelegate.stack.context)
         self.mapView.addAnnotation(annotation)
-//        AppDelegate.stack.save()
+        AppDelegate.stack.save()
     }
 }
 

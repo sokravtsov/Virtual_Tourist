@@ -53,7 +53,7 @@ final class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate
                 if success {
                     performUIUpdatesOnMain {
                         self.hideActivityIndicator()
-//                        AppDelegate.stack.save()
+                        AppDelegate.stack.save()
                     }
                 }
             }

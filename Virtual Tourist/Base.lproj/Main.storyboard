@@ -35,7 +35,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Virtual Tourist" id="oFr-M7-je7">
-                        <barButtonItem key="backBarButtonItem" title="Ok" id="ASE-bG-uNs"/>
+                        <barButtonItem key="backBarButtonItem" title="OK" id="ASE-bG-uNs"/>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="thz-WE-zlW" id="RsI-hc-COA"/>
