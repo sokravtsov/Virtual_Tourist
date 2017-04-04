@@ -77,12 +77,15 @@ extension PhotoAlbumViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let cell = collectionView.cellForItem(at: indexPath) as! PhotoAlbumViewCell
+        
         if let index = selectedIndexes.index(of: indexPath as NSIndexPath) {
             selectedIndexes.remove(at: index)
         } else {
             selectedIndexes.append(indexPath as NSIndexPath)
         }
+        
         configureCell(cell, atIndexPath: indexPath as NSIndexPath)
+        
         updateButton()
     }
     
@@ -115,6 +118,14 @@ extension PhotoAlbumViewController {
             cell.taskToCancelIfCellReused = task
         }
         cell.imageView.image = cellImage
+        
+        if selectedIndexes.index(of: indexPath as NSIndexPath) != nil {
+            cell.imageView.layer.borderWidth = 2.0
+            cell.imageView.layer.borderColor = UIColor.yellow.cgColor
+        } else {
+            cell.imageView.layer.borderWidth = 0.0
+            cell.imageView.layer.borderColor = UIColor.clear.cgColor
+        }
     }
 }
 
