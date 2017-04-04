@@ -36,8 +36,10 @@ final class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate
         return fetchedResultsController
     }()
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureLocation()
         executeSearch()
         fetchedResultsController.delegate = self
@@ -61,8 +63,9 @@ final class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate
     }
 }
 
+// MARK: - UICollectionsviewDelegate Methods
 extension PhotoAlbumViewController {
-    // MARK: - UICollectionsviewDelegate Methods
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         let sectionInfo = self.fetchedResultsController.sections![section] as NSFetchedResultsSectionInfo
@@ -85,6 +88,7 @@ extension PhotoAlbumViewController {
             selectedIndexes.append(indexPath as NSIndexPath)
         }
         configureCell(cell, atIndexPath: indexPath as NSIndexPath)
+        //TODO: Add update button
 //        updateButton()
     }
     
@@ -120,6 +124,7 @@ extension PhotoAlbumViewController {
     }
 }
 
+// MARK: - Location on Map
 extension PhotoAlbumViewController {
     
     func configureLocation() {
@@ -131,7 +136,6 @@ extension PhotoAlbumViewController {
         }
     }
     
-    // MARK: Helper Functions
     func executeSearch() {
         do {
             try fetchedResultsController.performFetch()
@@ -141,9 +145,9 @@ extension PhotoAlbumViewController {
     }
 }
 
+// MARK: - NSFetchedResultsControllerDelegate Methods
 extension PhotoAlbumViewController {
     
-    // MARK: - NSFetchedResultsControllerDelegate Methods
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         
         insertedIndexPaths = [NSIndexPath]()

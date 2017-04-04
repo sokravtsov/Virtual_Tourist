@@ -99,10 +99,6 @@ struct ResponseValues {
 
 struct Animation {
     struct Duration {
-//        static let min = 0.2
-//        static let low = 0.25
         static let medium = 0.5
-//        static let high = 0.75
-//        static let max = 1.0
     }
 }

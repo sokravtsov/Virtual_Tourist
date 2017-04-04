@@ -14,12 +14,11 @@ import CoreData
 final class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, NSFetchedResultsControllerDelegate {
     
     // MARK: - Variables
-    var locationManager = CLLocationManager()
-    
     enum PresentationState { case configure, on, off }
+    
     var presentationState: Bool!
     
-    /* Create a fetchedResultsController to retrieve and monitor changes in CoreDataModel */
+    ///Create a fetchedResultsController to retrieve and monitor changes in CoreDataModel
     lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>? = {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.pin)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Constants.latitude, ascending: true)]
@@ -33,10 +32,8 @@ final class MapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.mapView.delegate = self
-        self.locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
         fetchedResultsController?.delegate = self
         loadPersistedRegion()
         setPersistedLocations()
@@ -47,28 +44,6 @@ final class MapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         setupGesture()
     }
 }
-
-//// MARK: - LocationManager
-//extension MapViewController {
-//    ///Method for update location
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        
-//        let location = locations.last
-//        
-//        let center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
-//        
-//        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
-//        
-//        self.mapView.setRegion(region, animated: true)
-//        
-//        self.locationManager.stopUpdatingLocation()
-//    }
-//    
-//    ///Method for checking errors
-//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-//        print ("Errors: " + error.localizedDescription)
-//    }
-//}
 
 // MARK: - UILongPressGestureRecognizer
 extension MapViewController {
@@ -86,7 +61,9 @@ extension MapViewController {
     }
 }
 
+// MARK: - Persisted Location
 extension MapViewController {
+    
     func executeSearch() {
         if let fc = fetchedResultsController {
             do {
@@ -118,7 +95,9 @@ extension MapViewController {
     }
 }
 
+// MARK: - MKMapViewDelegate
 extension MapViewController {
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Identifier.photoAlbum {
             let pin = sender as! Pin
@@ -127,9 +106,7 @@ extension MapViewController {
         }
     }
     
-    // MARK: - MKMapViewDelegate
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
         let reuseId = ReuseID.pin
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
         if pinView == nil {
@@ -168,14 +145,11 @@ extension MapViewController {
     }
 }
 
+// MARK: - NSFetchedResultsControllerDelegate
 extension MapViewController {
-    // MARK: - NSFetchedResultsControllerDelegate
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    }
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-    }
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-    }
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    }
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {}
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {}
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {}
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {}
 }
