@@ -17,7 +17,7 @@ final class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var toolBarButton: UIBarButtonItem!
     
-    // MARK: - Variables 
+    // MARK: - Variables
     var pin: Pin?
     
     // Create NSIndexPath arrays to store selected collection view cells
@@ -61,6 +61,14 @@ final class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate
             }
         }
     }
+    
+    // MARK: - Action
+    
+    @IBAction func newCollectionTapped(_ sender: UIBarButtonItem) {
+        newCollection()
+    }
+    
+    
 }
 
 // MARK: - UICollectionsviewDelegate Methods
@@ -89,7 +97,7 @@ extension PhotoAlbumViewController {
         }
         configureCell(cell, atIndexPath: indexPath as NSIndexPath)
         //TODO: Add update button
-//        updateButton()
+        //        updateButton()
     }
     
     func configureCell(_ cell: PhotoAlbumViewCell, atIndexPath indexPath: NSIndexPath) {
@@ -196,5 +204,27 @@ extension PhotoAlbumViewController {
                 self.collectionView.reloadItems(at: [indexPath as IndexPath])
             }
         },  completion: nil)
+    }
+}
+
+extension PhotoAlbumViewController {
+    func newCollection() {
+        
+        for photo in fetchedResultsController.fetchedObjects as! [Photo] {
+            AppDelegate.stack.context.delete(photo)
+        }
+        AppDelegate.stack.save()
+        
+        if fetchedResultsController.fetchedObjects?.count == 0 {
+            showActivityIndicator()
+            DataLoader.sharedInstance().getPhotosUsingFlickr(pin) { (success, errorString) in
+                if success {
+                    performUIUpdatesOnMain {
+                        self.hideActivityIndicator()
+                        AppDelegate.stack.save()
+                    }
+                }
+            }
+        }
     }
 }
