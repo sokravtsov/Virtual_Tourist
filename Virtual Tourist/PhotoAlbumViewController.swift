@@ -39,37 +39,24 @@ final class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureLocation()
         executeSearch()
-        fetchedResultsController.delegate = self
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        setupCollectionView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if pin?.photo?.count == 0 {
-            showActivityIndicator()
-            DataLoader.sharedInstance().getPhotosUsingFlickr(pin) { (success, errorString) in
-                if success {
-                    performUIUpdatesOnMain {
-                        self.hideActivityIndicator()
-                        AppDelegate.stack.save()
-                    }
-                }
-            }
-        }
+        downloadCollection()
     }
     
     // MARK: - Action
     
     @IBAction func newCollectionTapped(_ sender: UIBarButtonItem) {
-        newCollection()
+        selectedIndexes.isEmpty ? newCollection() : deleteSelectedPhotos()
     }
-    
-    
 }
+
+// MARK: - Extensions
 
 // MARK: - UICollectionsviewDelegate Methods
 extension PhotoAlbumViewController {
@@ -96,14 +83,13 @@ extension PhotoAlbumViewController {
             selectedIndexes.append(indexPath as NSIndexPath)
         }
         configureCell(cell, atIndexPath: indexPath as NSIndexPath)
-        //TODO: Add update button
-        //        updateButton()
+        updateButton()
     }
     
     func configureCell(_ cell: PhotoAlbumViewCell, atIndexPath indexPath: NSIndexPath) {
         
         let photo = self.fetchedResultsController.object(at: indexPath as IndexPath) as! Photo
-        let placeHolderImage = UIImage(named: "flickr")
+        let placeHolderImage = UIImage(named: ImageName.flickr)
         var cellImage = placeHolderImage
         cell.imageView.image = nil
         
@@ -112,7 +98,7 @@ extension PhotoAlbumViewController {
         } else {
             let task = DataLoader.sharedInstance().getFlickrImages(photo) { (success, errorString, imageData) in
                 if errorString != nil {
-                    print("Error occured in configureCell")
+                    print(ErrorIs.configureCell)
                     cellImage = nil
                 } else {
                     if let data = imageData {
@@ -121,7 +107,7 @@ extension PhotoAlbumViewController {
                             cell.imageView.image = UIImage(data: data)
                         }
                     } else {
-                        print("Could not get the image data in configureCell")
+                        print(ErrorIs.getImage)
                     }
                 }
                 
@@ -207,14 +193,29 @@ extension PhotoAlbumViewController {
     }
 }
 
+// MARK: - Actions with collection photos
 extension PhotoAlbumViewController {
+    
+    /// Method for downloading collection photo
+    func downloadCollection() {
+        if pin?.photo?.count == 0 {
+            showActivityIndicator()
+            DataLoader.sharedInstance().getPhotosUsingFlickr(pin) { (success, errorString) in
+                if success {
+                    performUIUpdatesOnMain {
+                        self.hideActivityIndicator()
+                        AppDelegate.stack.save()
+                    }
+                }
+            }
+        }
+    }
+    /// Method for downloading new collection photos
     func newCollection() {
-        
         for photo in fetchedResultsController.fetchedObjects as! [Photo] {
             AppDelegate.stack.context.delete(photo)
         }
         AppDelegate.stack.save()
-        
         if fetchedResultsController.fetchedObjects?.count == 0 {
             showActivityIndicator()
             DataLoader.sharedInstance().getPhotosUsingFlickr(pin) { (success, errorString) in
@@ -226,5 +227,34 @@ extension PhotoAlbumViewController {
                 }
             }
         }
+    }
+    
+    /// Method for deleting selected photos
+    func deleteSelectedPhotos() {
+        var deletedPhotos = [Photo]()
+        for indexPath in selectedIndexes {
+            deletedPhotos.append(fetchedResultsController.object(at: indexPath as IndexPath) as! Photo)
+        }
+        for photo in deletedPhotos {
+            AppDelegate.stack.context.delete(photo)
+        }
+        AppDelegate.stack.save()
+        selectedIndexes = [NSIndexPath]()
+        updateButton()
+    }
+}
+
+// MARK: - Setup UI
+extension PhotoAlbumViewController {
+    
+    ///Method for update button title
+    func updateButton() {
+        selectedIndexes.count > 0 ? (toolBarButton.title = ButtonTitle.deletePhotos) : (toolBarButton.title = ButtonTitle.newCollection)
+    }
+    
+    func setupCollectionView() {
+        fetchedResultsController.delegate = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
 }

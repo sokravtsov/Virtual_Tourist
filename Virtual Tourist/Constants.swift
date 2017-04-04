@@ -49,6 +49,8 @@ struct ErrorIs {
     static let pin = "Could not acquire pin value for photo search"
     static let pinCompletion = "Could not complete photo search with pin"
     static let pageCompletion = "Could not complete photo search with page"
+    static let getImage = "Could not get the image in configureCell"
+    static let configureCell = "configureCell ERROR"
 }
 
 struct NetworkError {
@@ -101,4 +103,13 @@ struct Animation {
     struct Duration {
         static let medium = 0.5
     }
+}
+
+struct ButtonTitle {
+    static let deletePhotos = "Delete Selected Photos"
+    static let newCollection = "New Collection"
+}
+
+struct ImageName {
+    static let flickr = "flickr"
 }
