@@ -49,15 +49,18 @@ final class MapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
 extension MapViewController {
     func setupGesture() {
         let uilgr = UILongPressGestureRecognizer(target: self, action: #selector(action))
+        uilgr.minimumPressDuration = 1.0
         self.mapView.addGestureRecognizer(uilgr)
     }
     
-    func action(gestureRecognizer:UIGestureRecognizer){
-        let touchPoint = gestureRecognizer.location(in: mapView)
-        let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-        let annotation = Pin(latitude: newCoordinates.latitude, longitude: newCoordinates.longitude, context: AppDelegate.stack.context)
-        self.mapView.addAnnotation(annotation)
-        AppDelegate.stack.save()
+    func action(gestureRecognizer:UILongPressGestureRecognizer){
+        if gestureRecognizer.state == .ended {
+            let touchPoint = gestureRecognizer.location(in: mapView)
+            let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+            let annotation = Pin(latitude: newCoordinates.latitude, longitude: newCoordinates.longitude, context: AppDelegate.stack.context)
+            self.mapView.addAnnotation(annotation)
+            AppDelegate.stack.save()
+        }
     }
 }
 

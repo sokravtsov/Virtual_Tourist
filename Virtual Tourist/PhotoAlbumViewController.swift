@@ -233,8 +233,8 @@ extension PhotoAlbumViewController {
                 if success {
                     performUIUpdatesOnMain {
                         self.hideActivityIndicator()
-                        AppDelegate.stack.save()
                     }
+                    AppDelegate.stack.save()
                 }
             }
         }
