@@ -58,7 +58,9 @@ extension MapViewController {
             let touchPoint = gestureRecognizer.location(in: mapView)
             let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
             let annotation = Pin(latitude: newCoordinates.latitude, longitude: newCoordinates.longitude, context: AppDelegate.stack.context)
-            self.mapView.addAnnotation(annotation)
+            performUIUpdatesOnMain {
+                self.mapView.addAnnotation(annotation)
+            }
             AppDelegate.stack.save()
         }
     }
