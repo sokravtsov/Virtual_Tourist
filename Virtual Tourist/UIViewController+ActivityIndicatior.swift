@@ -24,7 +24,7 @@ extension UIViewController: ActivityIndicatorDelegate {
         activityIndicator = ActivityIndicator(frame: UIScreen.screenBounds())
         activityIndicator?.activityIndicator.startAnimating()
         activityIndicator?.alpha = 1
-        self.view.addSubview(activityIndicator!)
+        view.addSubview(activityIndicator!)
     }
     
     internal func showActivityIndicator(topField: CGFloat) {
@@ -37,7 +37,7 @@ extension UIViewController: ActivityIndicatorDelegate {
                                                             height: UIScreen.screenHeight() - (0 + topField)))
         activityIndicator?.activityIndicator.startAnimating()
         activityIndicator?.alpha = 1
-        self.view.addSubview(activityIndicator!)
+        view.addSubview(activityIndicator!)
     }
     
     internal func hideActivityIndicator() {

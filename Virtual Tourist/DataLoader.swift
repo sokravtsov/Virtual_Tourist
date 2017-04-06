@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class DataLoader: NSObject {
+class DataLoader: NSObject {
     
     // MARK: - Variables
     var session = URLSession.shared

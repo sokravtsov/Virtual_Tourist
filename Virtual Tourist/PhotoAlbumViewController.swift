@@ -41,7 +41,7 @@ final class PhotoAlbumViewController: UIViewController, UICollectionViewDelegate
         super.viewDidLoad()
         configureLocation()
         executeSearch()
-        setupCollectionView()
+        fetchedResultsController.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -261,11 +261,5 @@ extension PhotoAlbumViewController {
     ///Method for update button title
     func updateButton() {
         selectedIndexes.count > 0 ? (toolBarButton.title = ButtonTitle.deletePhotos) : (toolBarButton.title = ButtonTitle.newCollection)
-    }
-    
-    func setupCollectionView() {
-        fetchedResultsController.delegate = self
-        collectionView.delegate = self
-        collectionView.dataSource = self
     }
 }
