@@ -1,7 +1,7 @@
 # Virtual Tourist
 
-![](https://raw.githubusercontent.com/sokravtsov/On-the-Map/master/Screenshots/sh1.png)
-![](https://raw.githubusercontent.com/sokravtsov/On-the-Map/master/Screenshots/sh2.png)
+![](https://raw.githubusercontent.com/sokravtsov/Virtual_Tourist/master/Screenshots/sh1.png)
+![](https://raw.githubusercontent.com/sokravtsov/Virtual_Tourist/master/Screenshots/sh2.png)
 
 # Project Overview
 
